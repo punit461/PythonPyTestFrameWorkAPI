@@ -1,9 +1,10 @@
 import os
-import sys
-import allure
-import pytest
-import time
 import re
+import sys
+import time
+
+import pytest
+
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from configs.config import ConfigReader
@@ -64,6 +65,12 @@ def temp_company():
 
     # json body
     email = temp_mail.random_email()
+    # saving the email in config file
+    config_reader.set_value(section="Credentials",
+                            key="temp_username",
+                            value=email)
+    config_reader.save_config()
+
     json = {'email': str(email),
             "fullName": commons.random_string(8),
             "companyName": commons.random_string(10),
@@ -99,9 +106,52 @@ def temp_company():
 
             print("Subdomain:", subdomain)
             print("Token:", token)
+            config_reader.set_value(section="URLs",
+                                    key="tempEnv",
+                                    value=subdomain)
+            config_reader.set_value(section="URLs",
+                                    key="token",
+                                    value=token)
+            config_reader.save_config()
+
+            # call the set password api and set password
+
+            # url & paths
+            base_url = str(http + subdomain + "." + domain)
+            api = config_reader.get_api()
+            set_password = config_reader.get_set_password()
+
+            # headers
+            headers = {"Content-Type": "application/json",
+                       "Accept": "*/*",
+                       "Accept-Encoding": "gzip, deflate, br",
+                       "Connection": "keep-alive"}
+
+            # params
+            params = {"token": token}
+
+            # json body
+            password = commons.random_string(8)
+            config_reader.set_value(section="Credentials",
+                                    key="temp_password",
+                                    value=password)
+            json = {"newPassword": password}
+
+            # set password for  new company
+            resp = commons.send_request('POST',
+                                        url=base_url + api + set_password,
+                                        headers=headers,
+                                        params=params,
+                                        json_body=json)
+
+            commons.assert_status_code(resp, 200)
+            resp_json = commons.get_json(resp)
+            jwt_token = resp_json["data"]["token"]
+
+            config_reader.set_value(section="URLs",
+                                    key="jwt_token",
+                                    value=jwt_token)
+            config_reader.save_config()
 
         else:
             print("URL not found in the text.")
-
-
-temp_company()

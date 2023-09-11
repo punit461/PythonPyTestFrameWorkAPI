@@ -1,6 +1,7 @@
 import configparser
 import os
 from tests import project_directory
+import tests.base as base
 
 
 # Initialize the configparser
@@ -50,14 +51,23 @@ class ConfigReader:
         elif base_env == "prodEnv":
             return self.get_value('URLs', 'prodEnv')
         else:
-            pass
+            base.temp_company()
+            return self.get_value('URLs', 'tempEnv')
 
     # Read data from the 'Credentials' section
     def get_username(self):
-        return self.get_value('Credentials', 'username_admin')
+        base_env = self.get_value('URLs', 'baseEnv')
+        if base_env == "tempEnv":
+            return self.get_value('Credentials', 'temp_username')
+        else:
+            return self.get_value('Credentials', 'username_admin')
 
     def get_password(self):
-        return self.get_value('Credentials', 'password_admin')
+        base_env = self.get_value('URLs', 'baseEnv')
+        if base_env == "tempEnv":
+            return self.get_value('Credentials', 'temp_password')
+        else:
+            return self.get_value('Credentials', 'password_admin')
 
     # Read data from the 'Paths' section
     def get_api(self):
