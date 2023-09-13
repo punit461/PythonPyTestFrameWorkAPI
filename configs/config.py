@@ -1,7 +1,6 @@
 import configparser
 import os
 from tests import project_directory
-import tests.base as base
 
 
 # Initialize the configparser
@@ -40,31 +39,38 @@ class ConfigReader:
     def get_domain(self):
         return self.get_value('URLs', 'domain')
 
+    def get_base_env(self):
+        return self.get_value('URLs', 'base_env')
+
     def get_subdomain(self):
-        base_env = self.get_value('URLs', 'baseEnv')
-        if base_env == "testEnv":
-            return self.get_value('URLs', 'testEnv')
-        elif base_env == "devEnv":
-            return self.get_value('URLs', 'devEnv')
-        elif base_env == "stageEnv":
-            return self.get_value('URLs', 'stageEnv')
-        elif base_env == "prodEnv":
-            return self.get_value('URLs', 'prodEnv')
+        base_env = self.get_base_env()
+        if base_env == "test_env":
+            return self.get_value('URLs', 'test_env')
+        elif base_env == "dev_env":
+            return self.get_value('URLs', 'dev_env')
         else:
-            base.temp_company()
-            return self.get_value('URLs', 'tempEnv')
+            return self.get_value('URLs', 'temp_env')
+
+    def get_subdomain2(self):
+        return self.get_value('URLs', 'subdomain2')
+
+    def get_token(self):
+        return self.get_value('URLs', 'token')
+
+    def get_jwt_token(self):
+        return self.get_value('URLs', 'jwt_token')
 
     # Read data from the 'Credentials' section
     def get_username(self):
-        base_env = self.get_value('URLs', 'baseEnv')
-        if base_env == "tempEnv":
+        base_env = self.get_value('URLs', 'base_env')
+        if base_env == "temp_env":
             return self.get_value('Credentials', 'temp_username')
         else:
             return self.get_value('Credentials', 'username_admin')
 
     def get_password(self):
-        base_env = self.get_value('URLs', 'baseEnv')
-        if base_env == "tempEnv":
+        base_env = self.get_value('URLs', 'base_env')
+        if base_env == "temp_env":
             return self.get_value('Credentials', 'temp_password')
         else:
             return self.get_value('Credentials', 'password_admin')

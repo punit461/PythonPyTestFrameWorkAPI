@@ -1,5 +1,4 @@
 import requests
-from utils.common import random_string
 
 # base url definition
 base_url = "https://mailsac.com/api"
@@ -17,6 +16,7 @@ headers = {'Mailsac-Key': 'k_8FFrtLBacU3IhyKmPRd7gbLPsG9OkdjWbIKvp3nUa368I79'}
 
 # method to create a random email
 def random_email():
+    from utils.common import random_string
     return random_string(10) + temp_domain
 
 
