@@ -2,10 +2,6 @@ import string
 import random
 import requests
 import json
-import os
-import sys
-
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from configs.config import ConfigReader
 
 
@@ -50,7 +46,8 @@ def send_request(method, url, auth=None, headers=None, params=None, data=None, j
                                 data=data,
                                 auth=auth,
                                 json=json_body,
-                                verify=False)
+                                verify=False,
+                                stream=True)
     try:
         response.raise_for_status()
     except requests.exceptions.HTTPError as e:
@@ -76,3 +73,16 @@ def assert_json_value(resp_json, key, expected_value):
 
 def assert_in_text(response, expected_msg):
     assert expected_msg in response
+
+
+def get_full_response(response):
+    full_response = {
+        'url': response.url,
+        'status_code': response.status_code,
+        'headers': response.headers,
+        'content': response.text,
+        'request_method': response.request.method,
+        'request_body': response.request.body
+    }
+
+    return full_response

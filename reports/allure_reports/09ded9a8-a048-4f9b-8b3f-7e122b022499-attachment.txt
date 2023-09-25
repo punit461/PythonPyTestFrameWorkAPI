@@ -1,2 +1,0 @@
-[32mINFO    [0m test_successful_login:custom_logger.py:39 test_successful_login completed successfully.
-[32mINFO    [0m test_successful_login:custom_logger.py:46 Finished test: test_successful_login

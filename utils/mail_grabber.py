@@ -1,5 +1,13 @@
 import requests
 
+""" 
+Mail Grabber consists of 3 methods 
+1. random_email  - using random module create a temp-email domain
+2. generate_temp_email - using mailsac-service this will create a new mailbox which can send/ receive mails
+3. read_email - using mailsac api service to read the first mail and get the text of mail-body
+
+Use this service where-ever required for creating test cases/ creating new company.
+"""
 # base url definition
 base_url = "https://mailsac.com/api"
 temp_domain = "@mailsac.com"

@@ -46,3 +46,4 @@ def logmethod(func):
             logger.info(f"Finished test: {func.__name__}")
 
     return wrapper
+

@@ -91,5 +91,8 @@ class ConfigReader:
     def get_set_password(self):
         return self.get_value('Paths', 'setpassword')
 
+    def get_verify(self):
+        return self.get_value('Paths', 'verify')
+
     def get_log_mode(self):
         return self.get_value('Automation', 'log_mode')

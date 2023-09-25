@@ -1,12 +1,10 @@
 import os
-import re
 import sys
-import time
-
 import pytest
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
+from utils.custom_logger import setup_custom_logger
 from configs.config import ConfigReader
 import tests.temp_company as base
 

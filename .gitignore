@@ -1,0 +1,53 @@
+# Default ignored files
+/shelf/
+/workspace.xml
+
+# Remove the drivers since its not used
+*.exe
+
+# Ignore Python-related files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Ignore virtual environment directories (if you're using virtual environments)
+venv/
+env/
+
+# Ignore system and IDE-specific files
+.DS_Store
+.vscode/
+.idea/
+
+# Ignore test report files, logs & directories
+reports/allure_reports/
+reports/html_reports/
+reports/logs/
+
+# Ignore editor backup files
+*~
+
+# Ignore cache directories
+.pytest_cache/
+
+# Ignore Python package build directories
+build/
+dist/
+*.egg-info/
+*.egg
+
+# Ignore environment-specific or secret configuration files (update as needed)
+configurations/development.cfg
+configurations/production.cfg
+configurations/secrets.yaml
+
+# Ignore database files (if applicable)
+*.sqlite
+
+# Ignore any other generated or temporary files
+*.log
+*.swp
+*.swo
+*.swn
+*.bak
