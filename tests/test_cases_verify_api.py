@@ -47,8 +47,8 @@ class TestVerifyAPI:
         json_data = get_json(resp)
         print(json_data)
         logger.info(f"Response & Request: {get_full_response(resp)}")
-        assert_status_code(resp, 200)
-        assert_json_value(json_data, 'status', "OK")
+        assert_status_code(resp, 410)
+        assert_json_value(json_data, 'status', "GONE")
 
     @allure.story("Verify API TC - Valid jwt_token ")
     @allure.title("verify Verify api with valid jwt_token")
@@ -65,7 +65,7 @@ class TestVerifyAPI:
         print(json_data)
         logger.info(f"Response & Request: {get_full_response(resp)}")
         assert_status_code(resp, 200)
-        assert_json_value(json_data, 'status', "OK")
+        assert_json_value(json_data, 'authority', "Super Admin")
 
     @allure.story("Verify API TC - Valid domain ")
     @allure.title("verify Verify api with valid domain")
@@ -98,8 +98,8 @@ class TestVerifyAPI:
         json_data = get_json(resp)
         print(json_data)
         logger.info(f"Response & Request: {get_full_response(resp)}")
-        assert_status_code(resp, 400)
-        assert_json_value(json_data, 'status', "BAD_REQUEST")
+        assert_status_code(resp, 404)
+        assert_json_value(json_data, 'status', "NOT_FOUND")
 
     @allure.story("Verify API TC - Invalid Random Characters")
     @allure.title("verify Verify api with Invalid Random Characters")

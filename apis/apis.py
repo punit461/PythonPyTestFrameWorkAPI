@@ -41,12 +41,20 @@ class APIClient:
         # get the path of api and use to concatenate with url
         path = self.config_reader.get_api() + self.config_reader.get_set_password()
 
+        # Build url
+        subdomain2 = self.config_reader.get_subdomain2()
+        if subdomain2 == "":
+            base_url = self.config_reader.get_protocol() + subdomain + "." + self.config_reader.get_domain()
+        else:
+            base_url = (self.config_reader.get_protocol() + subdomain + "." + subdomain2 + "."
+                        + self.config_reader.get_domain())
+
         # add parameters
         params = {'token': token}
 
         # Send the request
         response = send_request('POST',
-                                url=subdomain + "." + self.sub_url + path,
+                                url=base_url + path,
                                 headers=APIClient.headers,
                                 params=params,
                                 json_body=json)
@@ -65,7 +73,7 @@ class APIClient:
 
     def api_verify(self, params):
         # get the path of api and use to concatenate with url
-        path = self.config_reader.get_api() + self.config_reader.verify()
+        path = self.config_reader.get_api() + self.config_reader.get_verify()
 
         # Send the request
         response = send_request('GET',
